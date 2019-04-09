@@ -32,4 +32,12 @@ describe Oystercard do
     end
   end
 
+  describe '#touch_out' do
+    it 'should update the card status to be in journey' do
+      subject.touch_in
+      subject.touch_out
+      expect(subject.in_journey?).to eq false
+    end
+  end
+
 end
