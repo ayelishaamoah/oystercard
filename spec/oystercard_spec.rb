@@ -19,4 +19,10 @@ describe Oystercard do
     end
   end
 
+  describe '#in_journey?' do
+    it 'should return true if the card is being used' do
+      expect(subject.in_journey?).to eq false
+    end
+  end
+
 end
