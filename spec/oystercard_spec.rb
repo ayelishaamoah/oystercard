@@ -27,13 +27,19 @@ describe Oystercard do
 
   describe '#touch_in' do
     it 'should update the card status to be in journey' do
+      subject.top_up(50)
       subject.touch_in
       expect(subject).to be_in_journey
+    end
+
+    it 'throws an error if balance is lower than minimun fare' do
+      expect{ subject.touch_in }.to raise_error "Your current balance is less than the minumum fare"
     end
   end
 
   describe '#touch_out' do
     it 'should update the card status to be in journey' do
+      subject.top_up(50)
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey

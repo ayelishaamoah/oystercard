@@ -23,6 +23,7 @@ class Oystercard
   end
 
   def touch_in
+    raise "Your current balance is less than the minumum fare" if @balance < 1
     @in_journey = true
   end
 
