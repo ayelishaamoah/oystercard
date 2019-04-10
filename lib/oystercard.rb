@@ -1,5 +1,5 @@
 class Oystercard
-  attr_reader :balance
+  attr_reader :balance, :entry_station
 
   MAX_BALANCE = 90
   MIN_BALANCE = 1
@@ -19,9 +19,10 @@ class Oystercard
     @in_journey
   end
 
-  def touch_in
+  def touch_in(station)
     raise "Your current balance is less than the minumum fare" if @balance < MIN_BALANCE
     @in_journey = true
+    @entry_station = station
   end
 
   def touch_out
