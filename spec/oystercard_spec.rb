@@ -41,12 +41,12 @@ let(:station) { double :station }
     it 'should update the card status to not be in journey' do
       subject.top_up(50)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject).not_to be_in_journey
     end
 
     it 'should deduct the fare from the current balance' do
-      expect { subject.touch_out }.to change{ subject.balance }.by (- Oystercard::MIN_BALANCE)
+      expect { subject.touch_out(station) }.to change{ subject.balance }.by (- Oystercard::MIN_BALANCE)
     end
   end
 end
