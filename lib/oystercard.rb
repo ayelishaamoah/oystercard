@@ -7,6 +7,7 @@ class Oystercard
   def initialize
     @balance = 0
     @journey_history = []
+    @journey = {}
   end
 
   def top_up(amount)
@@ -16,18 +17,21 @@ class Oystercard
   end
 
   def in_journey?
-    @entry_station == nil ? false : true
+    @journey.length == 1 ? true : false
   end
 
   def touch_in(station)
     raise "Your current balance is less than the minumum fare" if @balance < MIN_BALANCE
-    @entry_station = station
+    @journey = {}
+    @journey[:entry] = station
+    @journey
   end
 
   def touch_out(station)
     deduct(MIN_BALANCE)
-    @entry_station = nil
-    @exit_station = station
+    @journey[:exit] = station
+    @journey_history << @journey
+    @journey_history
   end
 
   private
