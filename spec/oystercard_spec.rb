@@ -32,17 +32,6 @@ let(:exit_station) { double :station  }
   describe '#touch_in' do
     let(:journey){ {entry: entry_station, exit: exit_station} }
 
-      it 'should record the entry station' do
-        subject.top_up(25)
-        expect(subject.touch_in(entry_station)).to eq({ entry: entry_station })
-      end
-      it 'stores a journey' do
-        subject.top_up(25)
-        subject.touch_in(entry_station)
-        subject.touch_out(exit_station)
-        expect(subject.journey_history).to include journey
-      end
-
     it 'throws an error if balance is lower than minimun fare' do
       expect{ subject.touch_in(entry_station) }.to raise_error "Your current balance is less than the minumum fare"
     end
@@ -61,10 +50,10 @@ let(:exit_station) { double :station  }
     it 'should deduct the fare from the current balance' do
       subject.top_up(50)
       subject.touch_in(entry_station)
-      expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by (- Oystercard::MIN_BALANCE)
+      expect { subject.touch_out(exit_station) }.to change{ subject.balance }.by (- Oystercard::MIN_CHARGE)
     end
 
-    it 'should record the exit station' do
+    it 'should record the journey' do
       subject.top_up(25)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
